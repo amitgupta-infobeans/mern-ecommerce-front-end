@@ -36,7 +36,7 @@ export const login = async (req, res) => {
         .json({ success: false, message: "Invalid password" });
     }
     const token = jwt.sign({ user: user }, process.env.SECRET_JWT_KEY, {
-      expiresIn: "600sec",  // for 10 min only.
+      expiresIn: "6000sec",  // for 10 min only.
     });
     res
       .status(200)

@@ -23,3 +23,6 @@
 
 # Also added Auth token validation using jsonwebtoken with method:  sign and verify.
 
+# Added User Shipping Address API:
+    1) add Address
+    2) get Address ( return latest added address)

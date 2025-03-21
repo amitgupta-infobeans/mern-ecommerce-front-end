@@ -5,6 +5,7 @@ import userRouter from "./Routes/UserRouter.js";
 import productRouter from "./Routes/ProductRouter.js";
 import cartRouter from "./Routes/Cart.js";
 import { Authenticated } from "./Middlewares/isAuthenticated.js";
+import addressRouter from "./Routes/Address.js";
 
 dotenv.config();
 const app = express();
@@ -12,16 +13,19 @@ const PORT = process.env.PORT || 7676;
 
 app.use(express.json());
 
-//User router.
+//USER ROUTER.
 app.use("/api/user/", userRouter);
 
-// Product router.
+// PRODUCT ROUTER.
 app.use("/api/product/", productRouter);
 
-// Cart router.
+// CART ROUTER.
 app.use("/api/cart/", Authenticated, cartRouter);
 
-// middleware to handle invalid api request.
+// ADDRESS ROUTER.
+app.use("/api/address/", Authenticated, addressRouter);
+
+// MIDDLEWARE TO HANDLE INVALID ROUTE OF API.
 app.use("/*", (req, res) => {
   res.status(404).json({ success: false, message: "Invalid api path." });
 });
