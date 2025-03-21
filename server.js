@@ -1,11 +1,8 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import userRouter from "./Routes/UserRouter.js";
-import productRouter from "./Routes/ProductRouter.js";
-import cartRouter from "./Routes/Cart.js";
+import {userRouter,productRouter,cartRouter,addressRouter} from "./Routes/index.js";
 import { Authenticated } from "./Middlewares/isAuthenticated.js";
-import addressRouter from "./Routes/Address.js";
 
 dotenv.config();
 const app = express();

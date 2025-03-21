@@ -46,3 +46,24 @@ export const getAddress = async (req, res) => {
     res.status(400).json({ success: false, message: e.message });
   }
 };
+
+export const deleteAddress = async (req, res) => {
+  try {
+    const { userId } = req;
+    const { addressId } = req.params;
+    const findAddress = await AddressModel.findByIdAndDelete({
+      userId: userId,
+      _id: addressId,
+    });
+    if (!findAddress) {
+      return res
+        .status(404)
+        .json({ success: false, message: "addres id not found" });
+    }
+    res
+      .status(200)
+      .json({ success: true, message: "address deleted successfully." });
+  } catch (e) {
+    res.status(400).json({ success: false, message: e.message });
+  }
+};
