@@ -1,5 +1,9 @@
 import { UserModel } from "../Models/User.js";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 // REGISTRATION API.
 export const register = async (req, res) => {
@@ -31,9 +35,17 @@ export const login = async (req, res) => {
         .status(400)
         .json({ success: false, message: "Invalid password" });
     }
+    const token = jwt.sign({ user: user }, process.env.SECRET_JWT_KEY, {
+      expiresIn: "600sec",  // for 10 min only.
+    });
     res
       .status(200)
-      .json({ success: true, message: `Welcome ${user.name} `, data: user });
+      .json({
+        success: true,
+        message: `Welcome ${user.name} `,
+        token,
+        data: user,
+      });
   } catch (e) {
     res.status(400).json({ success: false, message: e.message });
   }
